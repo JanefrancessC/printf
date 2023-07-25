@@ -34,6 +34,8 @@ int _printf(const char *format, ...)
 				case '%':
 					printed += _putchar('%');
 					break;
+				case '\0':
+					return (-1);
 				default:
 					printed += _putchar('%');
 					format--;
