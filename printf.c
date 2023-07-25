@@ -8,8 +8,8 @@
 
 int _printf(const char *format, ...)
 {
-	int printed = 0;
-	char c, *str;
+	int i, printed = 0;
+	char *str;
 
 	va_list args;
 
@@ -24,41 +24,28 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					c = (char)va_arg(args, int);
-					_putchar(c);
-					printed++;
+					printed += _putchar((char)va_arg(args, int));
 					break;
 				case 's':
 					str = va_arg(args, char*);
-
-					while (*str)
-					{
-						_putchar(*str);
-						str++;
-						printed++;
-					}
+					for (i = 0; str[i]; i++)
+						printed += _putchar(str[i]);
 					break;
 				case '%':
-					_putchar('%');
-					printed++;
+					printed += _putchar('%');
 					break;
 				default:
-					_putchar('%');
-					printed++;
-
+					printed += _putchar('%');
 					format--;
 					break;
 			}
 		}
 		else
 		{
-			_putchar(*format);
-			printed++;
+			printed += _putchar(*format);
 		}
 			format++;
 	}
-
 	va_end(args);
-
 	return (printed);
 }
